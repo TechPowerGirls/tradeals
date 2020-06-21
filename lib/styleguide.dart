@@ -19,5 +19,41 @@ class AppTheme {
       fontSize: 50.0,
       fontWeight:
       FontWeight.bold);
+  static final TextStyle sub_headline = TextStyle(
+      fontSize: 24.0,
+      color: Colors.orangeAccent,
+      fontWeight:
+      FontWeight.bold);
+  static final TextStyle section_heading = TextStyle(
+      fontSize: 20.0,
+      color: Colors.black,
+      fontWeight:
+      FontWeight.bold);
+  static final TextStyle See_all = TextStyle(
+      fontSize: 15.0,
+      color: Colors.orangeAccent,
+      fontWeight:
+      FontWeight.bold);
+  static final TextStyle category_text = TextStyle(
+      fontSize: 18.0,
+      color: Colors.white,
+      fontWeight:
+      FontWeight.bold);
+  static final TextStyle catalogues_text = TextStyle(
+    fontSize: 18.0,
+    color: Colors.black,
+
+  );
+  static final TextStyle amount_text = TextStyle(
+      fontSize: 18.0,
+      color: Colors.black,
+      fontWeight:
+      FontWeight.bold);
+  static final TextStyle filter_text = TextStyle(
+      fontSize: 16.0,
+      color: Colors.orange,
+      fontWeight:
+      FontWeight.bold);
+
 
 }

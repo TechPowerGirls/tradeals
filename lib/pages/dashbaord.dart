@@ -15,6 +15,7 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: <Widget>[
           Text("landing page"),
+          Text("Home page"),
           Text("login page"),
           Text("forgot password"),
           Text("Sign up"),
