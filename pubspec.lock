@@ -21,14 +21,36 @@ packages:
       name: async
       url: "https://pub.dartlang.org"
     source: hosted
+
+    version: "2.4.1"
+  auto_size_text:
+    dependency: transitive
+    description:
+      name: auto_size_text
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.1.0"
+
     version: "2.4.0"
+
   boolean_selector:
     dependency: transitive
     description:
       name: boolean_selector
       url: "https://pub.dartlang.org"
     source: hosted
+
+    version: "2.0.0"
+  carousel_pro:
+    dependency: "direct main"
+    description:
+      name: carousel_pro
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.0"
+
     version: "1.0.5"
+
   charcode:
     dependency: transitive
     description:
@@ -184,6 +206,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.8"
+  velocity_x:
+    dependency: "direct main"
+    description:
+      name: velocity_x
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.4.0"
   xml:
     dependency: transitive
     description:
@@ -193,3 +222,4 @@ packages:
     version: "3.5.0"
 sdks:
   dart: ">=2.7.0 <3.0.0"
+  flutter: ">=1.2.0 <2.0.0"
