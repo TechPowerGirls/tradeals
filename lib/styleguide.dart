@@ -54,6 +54,32 @@ class AppTheme {
       color: Colors.orange,
       fontWeight:
       FontWeight.bold);
+  static final TextStyle more_number = TextStyle(
+      fontSize: 25.0,
+      color: Colors.white,
+      fontWeight:
+      FontWeight.bold);
+  static final TextStyle whatsapp_box = TextStyle(
+      fontSize: 16.0,
+      color: Colors.white,
+      fontWeight:
+      FontWeight.bold);
+  static final TextStyle sharing_text = TextStyle(
+    fontSize: 12.0,
+    color: Colors.orange,
+  );
+  static final TextStyle star_text = TextStyle(
+      fontSize: 16.0,
+      color: Colors.white,
+      fontWeight:
+      FontWeight.bold
+  );
+  static final TextStyle Customer_name = TextStyle(
+      fontSize: 16.0,
+      color: Colors.black,
+      fontWeight:
+      FontWeight.bold
+  );
 
 
 }
