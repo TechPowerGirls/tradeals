@@ -6,11 +6,16 @@ import 'package:tradeals/widgets/drawer.dart';
 import 'package:tradeals/widgets/mainbottomnavigationbar.dart';
 
 class DepartmentPage extends StatefulWidget {
+  final category;
+
+  DepartmentPage(this.category);
+
   @override
   _DepartmentPageState createState() => _DepartmentPageState();
 }
 
 class _DepartmentPageState extends State<DepartmentPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,7 +43,7 @@ class _DepartmentPageState extends State<DepartmentPage> {
       body: Column(
         children: <Widget>[
           HomePageBanner(),
-          DepartmentCategory(),
+          DepartmentCategory(widget.category),
         ],
       ),
       bottomNavigationBar: BottomNavigator(),

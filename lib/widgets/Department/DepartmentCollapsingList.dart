@@ -1,59 +1,42 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tradeals/styleguide.dart';
+import 'package:tradeals/widgets/Department/department_category.dart';
 import 'package:tradeals/widgets/Homepage/homepage_Catalogues.dart';
-import 'package:velocity_x/velocity_x.dart';
-import 'package:tradeals/widgets/Homepage/homepage_Featured.dart';
-import 'package:tradeals/widgets/Homepage/homepage_bestsell.dart';
 import 'package:tradeals/widgets/Homepage/homepage_department.dart';
-import 'package:tradeals/widgets/drawer.dart';
-import 'file:///F:/flutterworkshop/tradeals/lib/widgets/Homepage/homepagebanner.dart';
-import 'file:///F:/flutterworkshop/tradeals/lib/widgets/Homepage/homepagecarousel.dart';
 import 'dart:math' as math;
-import 'package:tradeals/widgets/mainbottomnavigationbar.dart';
 
-class AppHomepage extends StatefulWidget {
+import 'package:tradeals/widgets/Homepage/homepagebanner.dart';
+
+import '../../styleguide.dart';
+
+class DepartmentCollapsingList extends StatefulWidget {
   @override
-  _AppHomepageState createState() => _AppHomepageState();
+  _DepartmentCollapsingListState createState() =>
+      _DepartmentCollapsingListState();
 }
 
-class _AppHomepageState extends State<AppHomepage> {
+class _DepartmentCollapsingListState extends State<DepartmentCollapsingList> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Home Page"),
-        centerTitle: true,
-        backgroundColor: Color(0xFF0C3853),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.notifications),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.shopping_cart),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(
-              Icons.search,
+    return SliverPersistentHeader(
+      pinned: true,
+      delegate: _SliverBannerDelegate(
+          minHeight: 100.0,
+          maxHeight: 100.0,
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                HomePageBanner(),
+
+                //homepage Carousel  start here
+              ],
             ),
-            onPressed: () {},
-          ),
-        ],
-        elevation: 0,
-      ),
-      drawer: Drawer(
-        child: MainDrawer(),
-      ),
-      body: CollapsingList(),
-      bottomNavigationBar: BottomNavigator(),
+          )),
     );
   }
 }
 
-class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-  _SliverAppBarDelegate({
+class _SliverBannerDelegate extends SliverPersistentHeaderDelegate {
+  _SliverBannerDelegate({
     @required this.minHeight,
     @required this.maxHeight,
     @required this.child,
@@ -76,7 +59,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
+  bool shouldRebuild(_SliverBannerDelegate oldDelegate) {
     return maxHeight != oldDelegate.maxHeight ||
         minHeight != oldDelegate.minHeight ||
         child != oldDelegate.child;
@@ -92,7 +75,7 @@ class _CollapsingListState extends State<CollapsingList> {
   SliverPersistentHeader makeHeader(String headerText) {
     return SliverPersistentHeader(
       pinned: true,
-      delegate: _SliverAppBarDelegate(
+      delegate: _SliverBannerDelegate(
           minHeight: 100.0,
           maxHeight: 100.0,
           child: Container(
@@ -115,7 +98,6 @@ class _CollapsingListState extends State<CollapsingList> {
         SliverList(
           delegate: SliverChildListDelegate(
             [
-              HomePageCarousel(),
               HomepageDepartment(),
               SizedBox(height: 10),
               Container(
