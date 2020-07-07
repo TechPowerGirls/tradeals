@@ -1,14 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:tradeals/models/category.dart';
 import 'package:tradeals/pages/homepage.dart';
 import 'package:tradeals/widgets/Department/department_category.dart';
 import 'package:tradeals/widgets/Homepage/homepagebanner.dart';
 import 'package:tradeals/widgets/drawer.dart';
 import 'package:tradeals/widgets/mainbottomnavigationbar.dart';
+import 'package:http/http.dart' as http;
 
 class DepartmentPage extends StatefulWidget {
-  final category;
+  final productDeptId;
 
-  DepartmentPage(this.category);
+  DepartmentPage(this.productDeptId);
 
   @override
   _DepartmentPageState createState() => _DepartmentPageState();
@@ -43,7 +47,7 @@ class _DepartmentPageState extends State<DepartmentPage> {
       body: Column(
         children: <Widget>[
           HomePageBanner(),
-          DepartmentCategory(widget.category),
+          DepartmentCategory(widget.productDeptId),
         ],
       ),
       bottomNavigationBar: BottomNavigator(),

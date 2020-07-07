@@ -84,7 +84,8 @@ class _HomepageDepartmentState extends State<HomepageDepartment> {
                       context,
                       MaterialPageRoute(
                         builder: (_) =>
-                            DepartmentPage(departments[index]), //(),
+                            DepartmentPage(
+                                departments[index].productDepartmentId), //(),
 
                       ),
                     ),
