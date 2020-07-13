@@ -5,7 +5,7 @@ import 'package:tradeals/pages/dashbaord.dart';
 import 'package:tradeals/pages/homepage.dart';
 import 'package:tradeals/styleguide.dart';
 import 'package:tradeals/widgets/landinpageslider.dart';
-import 'package:velocity_x/velocity_x.dart';
+
 
 class Splashscreen extends StatefulWidget {
   @override
@@ -32,25 +32,28 @@ class _SplashscreenState extends State<Splashscreen> {
         child: Scaffold(
           body: ListView(
             children: <Widget>[
-              HeightBox(100),
+              SizedBox(height: 100),
               Center(
                 child: Image.asset("assets/images/logo.png"),
               ),
-              HeightBox(100),
+              SizedBox(height: 100),
               Container(
                 child: LandingPageSlider(),
               ),
-              HeightBox(60),
-              RichText(
-                text: TextSpan(
-                  children: [
-                    TextSpan(text: "Welcome to ", style: AppTheme.sub_headline),
-                    TextSpan(
-                        text: "Store of your dream",
-                        style: AppTheme.sub_headline),
-                  ],
+              SizedBox(height: 100),
+              Center(
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                          text: "Welcome to ", style: AppTheme.sub_headline),
+                      TextSpan(
+                          text: "Store of your dream",
+                          style: AppTheme.sub_headline),
+                    ],
+                  ),
                 ),
-              ).centered(),
+              )
             ],
           ),
         ),

@@ -7,8 +7,8 @@ import 'package:tradeals/widgets/Homepage/homepage_Featured.dart';
 import 'package:tradeals/widgets/Homepage/homepage_bestsell.dart';
 import 'package:tradeals/widgets/Homepage/homepage_department.dart';
 import 'package:tradeals/widgets/drawer.dart';
-import 'file:///F:/flutterworkshop/tradeals/lib/widgets/Homepage/homepagebanner.dart';
-import 'file:///F:/flutterworkshop/tradeals/lib/widgets/Homepage/homepagecarousel.dart';
+import 'package:tradeals/widgets/Homepage/homepagebanner.dart';
+import 'package:tradeals/widgets/Homepage/homepagecarousel.dart';
 import 'dart:math' as math;
 import 'package:tradeals/widgets/mainbottomnavigationbar.dart';
 
