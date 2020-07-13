@@ -16,9 +16,14 @@ import 'package:http/http.dart' as http;
 import '../styleguide.dart';
 
 class CategoryPage extends StatefulWidget {
-  final categoryId;
 
-  CategoryPage(this.categoryId);
+  final productDeptId;
+  final productCategoryId;
+
+  CategoryPage(this.productDeptId, this.productCategoryId);
+
+
+
 
   @override
   _CategoryPageState createState() => _CategoryPageState();
@@ -35,16 +40,15 @@ class _CategoryPageState extends State<CategoryPage> {
     _fetchData();
   }
 
-
   _fetchData() async {
     setState(() {
       isLoading = true;
     });
     print('Calling API');
-    String apiCatagoryCatalogue = 'http://103.68.36.251/TraDealSquareAPI/Api/WebApi/GetAllProductCatalogues?ProductCategoryId=${widget
-        .categoryId}';
-    final response =
-    await http.get(apiCatagoryCatalogue);
+    String apiCatagoryCatalogue =
+        'http://103.68.36.251/TraDealSquareAPI/Api/WebApi/GetAllProductCatalogues?ProductCategoryId=${widget
+        .productCategoryId}';
+    final response = await http.get(apiCatagoryCatalogue);
     if (response.statusCode == 200) {
       list = json.decode(response.body) as List;
       print('list[0] = ${list[0]}');
@@ -61,7 +65,7 @@ class _CategoryPageState extends State<CategoryPage> {
       });
     } else {
       throw Exception(
-          'Failed to load categories for dept id: ${widget.categoryId}');
+          'Failed to load categories for dept id: ${widget.productCategoryId}');
     }
   }
 
@@ -93,181 +97,190 @@ class _CategoryPageState extends State<CategoryPage> {
       ),
       body: CustomScrollView(
         slivers: <Widget>[
-          SliverList(
-            delegate: SliverChildListDelegate([
-              HomePageBanner(),
-              Category(),
-              SizedBox(height: 10),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Text(
-                      "filters",
-                      style: AppTheme.filter_text,
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.filter),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-              ), //filter_container
+          SliverToBoxAdapter(
+            child: Container(
+              child: Column(
+                children: <Widget>[
+                  HomePageBanner(),
+                  Category(widget.productDeptId, widget.productCategoryId),
 
-              Container(
-                height: screenHeight,
-                child: ListView.builder(
-                  itemCount: catalogues.length,
-                  itemBuilder: (context, index) {
-                    return Container(
-                      child: Padding(
-                        padding:
-                        const EdgeInsets.symmetric(horizontal: 10,
-                            vertical: 10),
-                        child: Column(
-                          children: <Widget>[
-                            Container(
-                                height: screenHeight * 0.3,
-                                width: screenWidth,
-                                child: Row(
-                                  children: <Widget>[
-                                    Expanded(
-                                      flex: 1,
-                                      child: InkWell(
-                                        onTap: () =>
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (_) =>
-                                                      ProductListingPage(),
-                                                )),
-                                        child: Container(
-                                          child: ClipRRect(
-                                              borderRadius: BorderRadius
-                                                  .circular(10),
-                                              child: Image.asset(
-                                                  "assets/images/slider/featured1.png")),
-                                        ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      flex: 1,
+                  Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Text(
+                          "filters",
+                          style: AppTheme.filter_text,
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.filter),
+                          onPressed: () {},
+                        ),
+                      ],
+                    ),
+                  ),
+
+                ],
+              ),
+
+            ),
+
+          ),
+
+
+          //banner and category goes here.
+
+
+          SliverList(
+            delegate: SliverChildBuilderDelegate(
+                  (context, index) {
+                return Container(
+                  child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 10),
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                              height: screenHeight * 0.3,
+                              width: screenWidth,
+                              child: Row(
+                                children: <Widget>[
+                                  Expanded(
+                                    flex: 1,
+                                    child: InkWell(
+                                      onTap: () =>
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (_) =>
+                                                    ProductListingPage(),
+                                              )),
                                       child: Container(
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 5),
-                                        child: Column(
-                                          children: <Widget>[
-                                            Expanded(
-                                              flex: 1,
-                                              child: Container(
-                                                child: ClipRRect(
-                                                    borderRadius:
-                                                    BorderRadius.circular(10),
-                                                    child: Image.asset(
-                                                        "assets/images/slider/m1.jpeg")),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 4,
-                                            ),
-                                            Expanded(
-                                              flex: 1,
-                                              child: Container(
-                                                child: Stack(
-                                                  children: <Widget>[
-                                                    ClipRRect(
-                                                        borderRadius:
-                                                        BorderRadius.circular(
-                                                            10),
-                                                        child: Image.asset(
-                                                            "assets/images/slider/m1.jpeg")),
-                                                    Padding(
-                                                      padding:
-                                                      const EdgeInsets.all(
-                                                          15.0),
-                                                      child: Text(
-                                                        "5+",
-                                                        style: AppTheme
-                                                            .more_number,
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                        child: ClipRRect(
+                                            borderRadius:
+                                            BorderRadius.circular(10),
+                                            child: Image.asset(
+                                                "assets/images/slider/featured1.png")),
                                       ),
                                     ),
-                                  ],
-                                )),
-                            Row(
-                              children: <Widget>[
-                                Expanded(
-                                  flex: 3,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
+                                  ),
+                                  Expanded(
+                                    flex: 1,
                                     child: Container(
+                                      padding:
+                                      EdgeInsets.symmetric(vertical: 5),
                                       child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment
-                                            .start,
                                         children: <Widget>[
-                                          Text(
-                                            catalogues[index]
-                                                .catalogueDescription,
-                                            style: AppTheme.catalogues_text,
+                                          Expanded(
+                                            flex: 1,
+                                            child: Container(
+                                              child: ClipRRect(
+                                                  borderRadius:
+                                                  BorderRadius.circular(10),
+                                                  child: Image.asset(
+                                                      "assets/images/slider/m1.jpeg")),
+                                            ),
                                           ),
-                                          Text(
-                                            "total no.20",
-                                            style: AppTheme.amount_text,
+                                          SizedBox(
+                                            height: 4,
+                                          ),
+                                          Expanded(
+                                            flex: 1,
+                                            child: Container(
+                                              child: Stack(
+                                                children: <Widget>[
+                                                  ClipRRect(
+                                                      borderRadius:
+                                                      BorderRadius.circular(
+                                                          10),
+                                                      child: Image.asset(
+                                                          "assets/images/slider/m1.jpeg")),
+                                                  Padding(
+                                                    padding:
+                                                    const EdgeInsets.all(
+                                                        15.0),
+                                                    child: Text(
+                                                      "5+",
+                                                      style:
+                                                      AppTheme.more_number,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
                                           ),
                                         ],
                                       ),
                                     ),
                                   ),
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(right: 15),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.green,
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                          children: <Widget>[
-                                            Image.network(
-                                              "https://cdn4.iconfinder.com/data/icons/social-media-2210/24/Whatsapp-512.png",
-                                              height: 20,
-                                            ),
-                                            Text(
-                                              "SHARE NOW",
-                                              style: AppTheme.whatsapp_box,
-                                            )
-                                          ],
+                                ],
+                              )),
+                          Row(
+                            children: <Widget>[
+                              Expanded(
+                                flex: 3,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Container(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                      CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Text(
+                                          catalogues[index]
+                                              .catalogueDescription,
+                                          style: AppTheme.catalogues_text,
                                         ),
+                                        Text(
+                                          "total no.20",
+                                          style: AppTheme.amount_text,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                flex: 2,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(right: 15),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.green,
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                        children: <Widget>[
+                                          Image.network(
+                                            "https://cdn4.iconfinder.com/data/icons/social-media-2210/24/Whatsapp-512.png",
+                                            height: 20,
+                                          ),
+                                          Text(
+                                            "SHARE NOW",
+                                            style: AppTheme.whatsapp_box,
+                                          )
+                                        ],
                                       ),
                                     ),
                                   ),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
+                                ),
+                              )
+                            ],
+                          )
+                        ],
                       ),
-                    );
-                  },
-
-                ),
-              ),
-
-            ]),
-          )
+                    ),
+                  ),
+                );
+              },
+              childCount: catalogues.length,
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: BottomNavigator(),

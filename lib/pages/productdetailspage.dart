@@ -3,8 +3,8 @@ import 'package:tradeals/widgets/Homepage/homepagebanner.dart';
 import 'package:tradeals/widgets/Homepage/homepagecarousel.dart';
 import 'package:tradeals/widgets/mainbottomnavigationbar.dart';
 import 'package:tradeals/widgets/products/product_description.dart';
-import 'file:///F:/flutterworkshop/tradeals/lib/widgets/products/rating_widget.dart';
-import 'file:///F:/flutterworkshop/tradeals/lib/widgets/products/review_widget.dart';
+import 'package:tradeals/widgets/products/rating_widget.dart';
+import 'package:tradeals/widgets/products/review_widget.dart';
 
 import '../styleguide.dart';
 

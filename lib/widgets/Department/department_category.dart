@@ -39,7 +39,8 @@ class _DepartmentCategoryState extends State<DepartmentCategory> {
     print('Calling API');
     final response =
     await http.get(
-        "http://103.68.36.251/TraDealSquareAPI/Api/WebApi/GetAllProductCategories?ProductDepartmentId=${widget
+        "http://103.68.36.251/TraDealSquareAPI/Api/WebApi/"
+            "GetAllProductCategories?ProductDepartmentId=${widget
             .productDeptId}");
     if (response.statusCode == 200) {
       print('response.statusCode = ${response.statusCode}');
@@ -116,6 +117,7 @@ class _DepartmentCategoryState extends State<DepartmentCategory> {
                           Navigator.push(context, MaterialPageRoute(
                             builder: (_) =>
                                 CategoryPage(
+                                    widget.productDeptId,
                                     categories[index].productCategoryId),
                           )),
                       child: Container(
