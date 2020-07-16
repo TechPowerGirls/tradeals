@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -7,35 +8,72 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final _formKey = GlobalKey<FormState>();
-  String _username, _email, _password;
+
+  var _countryMap = ['India', 'United Kingdom', 'New Zealand'];
+  String _username, _email, _password, _mobileno, _country, _repassword;
   bool _obscureText = true;
+  bool _obscureTextRe = true;
   String dropdownValue = 'India';
   String _value;
+  FocusNode _focusNode = new FocusNode();
+  final TextEditingController _passwordcotroller = new TextEditingController();
 
-  // Widget _showTitle (){
-  //   return Text('Register', style:Theme.of(context).textTheme.headline);
-  // }
+  void initState() {
+    super.initState();
+    // _selectedNewCurrency = _currencies[0];
+  }
+
+  void dispose() {
+    if (this.mounted) super.dispose();
+    _passwordcotroller.dispose();
+  }
+
+  Widget _ShowProfileImage() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Container(
+          height: 80,
+          width: 80,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: NetworkImage(
+                  'https://i1.wp.com/www.docker.com/blog/wp-content/uploads/2019/10/Renee-M.jpg'),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Icon(
+            Icons.photo_camera,
+            color: Color(0xFFF9A31A),
+          ),
+        ),
+      ],
+    );
+  }
+
 
   Widget _showUserNameInput() {
     return TextFormField(
       onSaved: (val) => _username = val,
-      validator: (val) => val.length < 6 ? 'User name is too short' : 'null',
-      decoration: InputDecoration(
-        enabledBorder: new OutlineInputBorder(
-          borderRadius: new BorderRadius.all(
-            Radius.circular(30.0),
-          ),
-          borderSide: const BorderSide(
-            color: Color(0xFF0C3853),
-            width: 2.0,
-          ),
-        ),
-        labelText: 'User Name',
-        hintText: 'Input User Name, minimum length 6 characters',
-        icon: Icon(
+
+      validator: (val) => val.length < 6 ? 'User name is too short' : null,
+      decoration: new InputDecoration(
+        prefixIcon: Icon(
           Icons.face,
           color: Color(0xFFF9A31A),
         ),
+        /* labelStyle: TextStyle(
+          color:_focusNode.hasFocus?Colors.red :Colors.purple,
+        ),*/
+        labelText: 'User Name',
+        hintText: 'User Name, min length 6 characters',
+        focusColor: Color(0xFF0C3853),
+
       ),
     );
   }
@@ -43,33 +81,31 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _showEmailInput() {
     return TextFormField(
       onSaved: (val) => _email = val,
-      validator: (val) => !val.contains('@') ? 'Invalid email' : 'null',
+
+      keyboardType: TextInputType.emailAddress,
+      validator: (val) => !val.contains('@') ? 'Invalid email' : null,
       decoration: InputDecoration(
-        enabledBorder: new OutlineInputBorder(
-          borderRadius: new BorderRadius.all(
-            Radius.circular(30.0),
-          ),
-          borderSide: const BorderSide(
-            color: Color(0xFF0C3853),
-            width: 2.0,
-          ),
-        ),
-        labelText: 'Email',
-        hintText: 'Email',
-        icon: Icon(
+        prefixIcon: Icon(
           Icons.email,
           color: Color(0xFFF9A31A),
         ),
+        focusColor: Color(0xFF0C3853),
+        labelText: 'Email',
+        hintText: 'Enter email',
+
       ),
     );
   }
 
   Widget _showPasswordInput() {
     return TextFormField(
+
+      controller: _passwordcotroller,
       onSaved: (val) => _password = val,
       validator: (val) =>
-          val.length < 6 ? 'Password must be of minimum 6 letter' : 'null',
-      obscureText: true,
+          val.length < 6 ? 'Password must be of minimum 6 letter' : null,
+      obscureText: _obscureText,
+
       decoration: InputDecoration(
         suffixIcon: GestureDetector(
           onTap: () => setState(() {
@@ -79,130 +115,120 @@ class _ProfilePageState extends State<ProfilePage> {
             _obscureText ? Icons.visibility : Icons.visibility_off,
           ),
         ),
-        enabledBorder: new OutlineInputBorder(
-          borderRadius: new BorderRadius.all(
-            Radius.circular(30.0),
-          ),
-          borderSide: const BorderSide(
-            color: Color(0xFF0C3853),
-            width: 2.0,
-          ),
-        ),
-        labelText: 'Password',
-        hintText: 'Password',
-        icon: Icon(
+
+        prefixIcon: Icon(
           Icons.lock,
           color: Color(0xFFF9A31A),
         ),
+        focusColor: Color(0xFF0C3853),
+        labelText: 'Password',
+        hintText: 'Enter Password , min. length 6',
+
+        
       ),
     );
   }
 
+
+  bool validationEqual(String currentValue, String checkValue) {
+    if (currentValue == checkValue) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Widget _showRetypePasswordInput() {
     return TextFormField(
-      onSaved: (val) => _password = val,
-      validator: (val) =>
-          val.length < 6 ? 'Password must be of minimum 6 letter' : 'null',
-      obscureText: true,
+      onSaved: (val) => _repassword = val,
+      validator: (confirmation) {
+        return confirmation.isEmpty
+            ? 'Confirm password is required'
+            : validationEqual(confirmation, _passwordcotroller.text)
+                ? null
+                : 'Password does not match';
+      },
+
+      // validator: (val) =>
+      //val.length < 6 ? 'Password must be of minimum 6 letter' : null,
+      obscureText: _obscureTextRe,
       decoration: InputDecoration(
         suffixIcon: GestureDetector(
           onTap: () => setState(() {
-            _obscureText = !_obscureText;
+            _obscureTextRe = !_obscureTextRe;
           }),
           child: Icon(
-            _obscureText ? Icons.visibility : Icons.visibility_off,
+            _obscureTextRe ? Icons.visibility : Icons.visibility_off,
           ),
         ),
-        enabledBorder: new OutlineInputBorder(
-          borderRadius: new BorderRadius.all(
-            Radius.circular(30.0),
-          ),
-          borderSide: const BorderSide(
-            color: Color(0xFF0C3853),
-            width: 2.0,
-          ),
-        ),
-        labelText: 'Retype Password',
-        hintText: 'Retype Password',
-        icon: Icon(
+        prefixIcon: Icon(
           Icons.lock,
           color: Color(0xFFF9A31A),
         ),
+        focusColor: Color(0xFF0C3853),
+        labelText: 'Retype Password',
+        hintText: 'Enter Password  , min. length 6',
+
       ),
     );
   }
 
   Widget _showCountryInput() {
-    return Padding(
-      padding: const EdgeInsets.only(left: 5.0),
-      child: Row(
-        children: <Widget>[
-          Icon(
+
+    return Row(
+      children: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(left: 9.0),
+          child: Icon(
             Icons.language,
             color: Color(0xFFF9A31A),
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 12.0),
-            child: Container(
-              width: 275,
-              height: 60,
-              decoration: new BoxDecoration(
-          //color: Color(0xFF0C3853),
-           border: Border.all(color: Color(0xFF0C3853), width: 2.0,),
-          borderRadius: BorderRadius.all(
-        Radius.circular(30.0),),
-          
-        ),      
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: DropdownButton<String>(
-                  items: [
-                    DropdownMenuItem<String>(
-                      child: Text('India'),
-                      value: 'india',
-                    ),
-                    DropdownMenuItem<String>(
-                      child: Text('United Kingdom'),
-                      value: 'uk',
-                    ),
-                    DropdownMenuItem<String>(
-                      child: Text('Newzeland'),
-                      value: 'newzeland',
-                    ),
-                  ],
-                  onChanged: (String value) {
-                    setState(() {
-                      _value = value;
-                    });
-                  },
-                  hint: Text('Select Country'),
-                  value: _value,
-                ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 14.0),
+          child: Container(
+            width: 300,
+            height: 60,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: DropdownButton<String>(
+                items: _countryMap.map((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+                onChanged: (String value) {
+                  setState(() {
+                    _value = value;
+                    _country = _value;
+                  });
+                },
+                focusColor: Color(0xFF0C3853),
+                hint: Text('Select Country'),
+                value: _value,
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
+
     );
   }
 
   Widget _showMobileNumberInput() {
     return TextFormField(
-      onSaved: (val) => _email = val,
-      validator: (val) => !val.contains('@') ? 'Invalid email' : 'null',
+
+      onSaved: (val) => _mobileno = val,
+      keyboardType: TextInputType.phone,
+      validator: (val) => val.length < 9 ? 'Invalid mobile' : null,
       decoration: InputDecoration(
-        enabledBorder: new OutlineInputBorder(
-          borderRadius: new BorderRadius.all(
-            Radius.circular(30.0),
-          ),
-          borderSide: const BorderSide(
-            color: Color(0xFF0C3853),
-            width: 2.0,
-          ),
-        ),
+        focusColor: Color(0xFF0C3853),
         labelText: 'Mobile Number',
-        hintText: 'Mobile Number',
-        icon: Icon(
+        hintText: 'Enter mobile number',
+        prefixIcon: Icon(
+
+          
           Icons.phone,
           color: Color(0xFFF9A31A),
         ),
@@ -213,19 +239,26 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _showFormActions() {
     return Column(
       children: [
-        //   RaisedButton(onPressed: () => _submit(),
-        //     child: Text('Submit', style: Theme.of(context).textTheme.body1),
-        //     elevation: 8.0,
-        //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10.0),),),
-        //     color: Theme.of(context).primaryColor,
-        //   ),
 
-        FlatButton(
-          onPressed:
-              () {}, //=> Navigator.pushReplacementNamed(context, '/login'),
-          child: Text('Edit profile'),
+        RaisedButton(
+          onPressed: () {
+            setState(() {
+              _submit();
+            });
+          },
+          // onPressed: () => _submit(),
+          child: Text('Update Profile'),
+          textColor: Colors.white,
+          elevation: 8.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(10.0),
+            ),
+          ),
+          color: Color(0xFFF9A31A),
         ),
 
+        
         SizedBox(height: 20.0),
       ],
     );
@@ -234,15 +267,16 @@ class _ProfilePageState extends State<ProfilePage> {
   void _submit() {
     final form = _formKey.currentState;
 
+    print(
+        'UserName : ${_username}, Email : ${_email}, Password : ${_password}, RePassword : ${_repassword},Country : ${_country},Mobile number : ${_mobileno}');
     if (form.validate()) {
       form.save();
-    }
+      print(
+          'newUserName : ${_username}, Email : ${_email}, Password : ${_password}, RePassword : ${_repassword},Country : ${_country},Mobile number : ${_mobileno}');
+    } else
+      print('Invalid form');
 
-    if (_formKey.currentState.validate()) {
-      print('Form valid');
-    } else {
-      print('Form invalid');
-    }
+    
   }
 
   @override
@@ -258,9 +292,10 @@ class _ProfilePageState extends State<ProfilePage> {
         padding: EdgeInsets.symmetric(horizontal: 20.0),
         decoration: new BoxDecoration(
           color: Colors.white,
-          
+
           borderRadius: BorderRadius.only(
-              topRight: Radius.circular(40), topLeft: Radius.circular(40)),
+              topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+
           
         ),
         child: SingleChildScrollView(
@@ -268,10 +303,13 @@ class _ProfilePageState extends State<ProfilePage> {
             key: _formKey,
             child: Column(
               children: [
-                // Padding(
-                //   padding: const EdgeInsets.only(top: 30.0),
-                //   child: _showTitle(),
-                // ),
+
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: _ShowProfileImage(),
+                ),
+
+                
                 Padding(
                   padding: EdgeInsets.only(top: 20.0),
                   child: _showUserNameInput(),
@@ -294,12 +332,13 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
 
                 Padding(
-                  padding: EdgeInsets.only(top: 8.0),
+                  padding: EdgeInsets.only(top: 20.0),
                   child: _showMobileNumberInput(),
                 ),
-
                 Padding(
-                  padding: EdgeInsets.only(top: 8.0),
+                  padding: EdgeInsets.only(top: 20.0),
+
+                  
                   child: _showFormActions(),
                 ),
               ],
