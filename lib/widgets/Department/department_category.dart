@@ -39,7 +39,7 @@ class _DepartmentCategoryState extends State<DepartmentCategory> {
     print('Calling API');
     final response =
     await http.get(
-        "http://103.68.36.251/TraDealSquareAPI/Api/WebApi/"
+        "http://188.95.36.102:86/Api/WebApi/"
             "GetAllProductCategories?ProductDepartmentId=${widget
             .productDeptId}");
     if (response.statusCode == 200) {

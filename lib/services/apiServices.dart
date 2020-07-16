@@ -6,7 +6,7 @@ import 'package:tradeals/models/subcategory.dart';
 
 class ApiService {
   Future<List<SubCategory>> getSubcat(productDeptId, productCatId) async {
-    String _url = "http://103.68.36.251/TraDealSquareAPI/Api/WebApi/"
+    String _url = "http://188.95.36.102:86/Api/WebApi/"
         "GetSubCategoryByDepartmentAndCategory?"
         "ProductDepartmentId=$productDeptId&ProductCategoryId=$productCatId";
     List<SubCategory> listSubcats = [];

@@ -46,7 +46,7 @@ class _CategoryPageState extends State<CategoryPage> {
     });
     print('Calling API');
     String apiCatagoryCatalogue =
-        'http://103.68.36.251/TraDealSquareAPI/Api/WebApi/GetAllProductCatalogues?ProductCategoryId=${widget
+        'http://188.95.36.102:86/Api/WebApi/GetAllProductCatalogues?ProductCategoryId=${widget
         .productCategoryId}';
     final response = await http.get(apiCatagoryCatalogue);
     if (response.statusCode == 200) {
