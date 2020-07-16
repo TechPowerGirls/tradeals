@@ -27,7 +27,7 @@ class _HomepageDepartmentState extends State<HomepageDepartment> {
       isLoading = true;
     });
     final response = await http.get(
-        "http://103.68.36.251/TraDealSquareAPI/Api/WebApi/GetProductDepartments");
+        "http://188.95.36.102:86/Api/WebApi/GetProductDepartments");
     if (response.statusCode == 200) {
       list = json.decode(response.body) as List;
       print('list[0] = ${list[0]}');
