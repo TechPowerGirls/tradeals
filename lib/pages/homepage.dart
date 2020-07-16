@@ -112,30 +112,36 @@ class _CollapsingListState extends State<CollapsingList> {
     return CustomScrollView(
       slivers: <Widget>[
         makeHeader('Header Section 1'),
-        SliverList(
-          delegate: SliverChildListDelegate(
-            [
-              HomePageCarousel(),
-              HomepageDepartment(),
-              SizedBox(height: 10),
-              Container(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Text(
-                      "filters",
-                      style: AppTheme.filter_text,
-                    ),
-                    IconButton(
-                      icon: Icon(Icons.filter),
-                      onPressed: () {},
-                    ),
-                  ],
+
+        SliverToBoxAdapter(
+          child: Container(
+            child: Column(
+              children: <Widget>[
+                HomePageCarousel(),
+                HomepageDepartment(),
+                SizedBox(height: 10),
+                Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: <Widget>[
+                      Text(
+                        "filters",
+                        style: AppTheme.filter_text,
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.filter),
+                        onPressed: () {},
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: 10),
-            ],
+                SizedBox(height: 10),
+
+              ],
+            ),
+
           ),
+
         ),
         HomePageCatalogues(),
 
