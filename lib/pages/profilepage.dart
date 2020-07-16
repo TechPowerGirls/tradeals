@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -8,6 +8,7 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   final _formKey = GlobalKey<FormState>();
+
   var _countryMap = ['India', 'United Kingdom', 'New Zealand'];
   String _username, _email, _password, _mobileno, _country, _repassword;
   bool _obscureText = true;
@@ -55,9 +56,11 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+
   Widget _showUserNameInput() {
     return TextFormField(
       onSaved: (val) => _username = val,
+
       validator: (val) => val.length < 6 ? 'User name is too short' : null,
       decoration: new InputDecoration(
         prefixIcon: Icon(
@@ -70,6 +73,7 @@ class _ProfilePageState extends State<ProfilePage> {
         labelText: 'User Name',
         hintText: 'User Name, min length 6 characters',
         focusColor: Color(0xFF0C3853),
+
       ),
     );
   }
@@ -77,6 +81,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _showEmailInput() {
     return TextFormField(
       onSaved: (val) => _email = val,
+
       keyboardType: TextInputType.emailAddress,
       validator: (val) => !val.contains('@') ? 'Invalid email' : null,
       decoration: InputDecoration(
@@ -87,17 +92,20 @@ class _ProfilePageState extends State<ProfilePage> {
         focusColor: Color(0xFF0C3853),
         labelText: 'Email',
         hintText: 'Enter email',
+
       ),
     );
   }
 
   Widget _showPasswordInput() {
     return TextFormField(
+
       controller: _passwordcotroller,
       onSaved: (val) => _password = val,
       validator: (val) =>
           val.length < 6 ? 'Password must be of minimum 6 letter' : null,
       obscureText: _obscureText,
+
       decoration: InputDecoration(
         suffixIcon: GestureDetector(
           onTap: () => setState(() {
@@ -107,6 +115,7 @@ class _ProfilePageState extends State<ProfilePage> {
             _obscureText ? Icons.visibility : Icons.visibility_off,
           ),
         ),
+
         prefixIcon: Icon(
           Icons.lock,
           color: Color(0xFFF9A31A),
@@ -114,9 +123,12 @@ class _ProfilePageState extends State<ProfilePage> {
         focusColor: Color(0xFF0C3853),
         labelText: 'Password',
         hintText: 'Enter Password , min. length 6',
+
+        
       ),
     );
   }
+
 
   bool validationEqual(String currentValue, String checkValue) {
     if (currentValue == checkValue) {
@@ -156,11 +168,13 @@ class _ProfilePageState extends State<ProfilePage> {
         focusColor: Color(0xFF0C3853),
         labelText: 'Retype Password',
         hintText: 'Enter Password  , min. length 6',
+
       ),
     );
   }
 
   Widget _showCountryInput() {
+
     return Row(
       children: <Widget>[
         Padding(
@@ -198,11 +212,13 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
         ),
       ],
+
     );
   }
 
   Widget _showMobileNumberInput() {
     return TextFormField(
+
       onSaved: (val) => _mobileno = val,
       keyboardType: TextInputType.phone,
       validator: (val) => val.length < 9 ? 'Invalid mobile' : null,
@@ -211,6 +227,8 @@ class _ProfilePageState extends State<ProfilePage> {
         labelText: 'Mobile Number',
         hintText: 'Enter mobile number',
         prefixIcon: Icon(
+
+          
           Icons.phone,
           color: Color(0xFFF9A31A),
         ),
@@ -221,6 +239,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget _showFormActions() {
     return Column(
       children: [
+
         RaisedButton(
           onPressed: () {
             setState(() {
@@ -238,6 +257,8 @@ class _ProfilePageState extends State<ProfilePage> {
           ),
           color: Color(0xFFF9A31A),
         ),
+
+        
         SizedBox(height: 20.0),
       ],
     );
@@ -245,6 +266,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void _submit() {
     final form = _formKey.currentState;
+
     print(
         'UserName : ${_username}, Email : ${_email}, Password : ${_password}, RePassword : ${_repassword},Country : ${_country},Mobile number : ${_mobileno}');
     if (form.validate()) {
@@ -253,6 +275,8 @@ class _ProfilePageState extends State<ProfilePage> {
           'newUserName : ${_username}, Email : ${_email}, Password : ${_password}, RePassword : ${_repassword},Country : ${_country},Mobile number : ${_mobileno}');
     } else
       print('Invalid form');
+
+    
   }
 
   @override
@@ -268,18 +292,24 @@ class _ProfilePageState extends State<ProfilePage> {
         padding: EdgeInsets.symmetric(horizontal: 20.0),
         decoration: new BoxDecoration(
           color: Colors.white,
+
           borderRadius: BorderRadius.only(
               topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+
+          
         ),
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,
             child: Column(
               children: [
+
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: _ShowProfileImage(),
                 ),
+
+                
                 Padding(
                   padding: EdgeInsets.only(top: 20.0),
                   child: _showUserNameInput(),
@@ -300,12 +330,15 @@ class _ProfilePageState extends State<ProfilePage> {
                   padding: EdgeInsets.only(top: 20.0),
                   child: _showCountryInput(),
                 ),
+
                 Padding(
                   padding: EdgeInsets.only(top: 20.0),
                   child: _showMobileNumberInput(),
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 20.0),
+
+                  
                   child: _showFormActions(),
                 ),
               ],

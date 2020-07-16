@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tradeals/pages/dashbaord.dart';
+
 import 'package:tradeals/pages/landingpage.dart';
+
+import './pages/profilepage.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,6 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo1',
         theme: ThemeData(
@@ -30,6 +34,15 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         home: Splashscreen()
+
+      
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        
+      ),
+      home: ProfilePage()
+
     );
   }
 }
